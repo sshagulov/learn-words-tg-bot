@@ -1,0 +1,5 @@
+__pycache__/
+.venv/
+users/*
+.envrc
+ngrok_run_upd_url.sh

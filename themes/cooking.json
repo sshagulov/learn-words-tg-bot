@@ -1,0 +1,29 @@
+{
+  "title": "Готовка",
+  "words": [
+    { "id": 0,  "word": "cooking", "translation": "готовка"           },
+    { "id": 1,  "word": "bake",    "translation": "печь"              },
+    { "id": 2,  "word": "boil",    "translation": "варить"            },
+    { "id": 3,  "word": "fry",     "translation": "жарить"            },
+    { "id": 4,  "word": "peel",    "translation": "снимать кожуру"    },
+    { "id": 5,  "word": "slice",   "translation": "резать ломтиками"  },
+    { "id": 6,  "word": "grate",   "translation": "тереть на терке"   },
+    { "id": 7,  "word": "pour",    "translation": "наливать"          },
+    { "id": 8,  "word": "mix",     "translation": "смешивать"         },
+    { "id": 9,  "word": "knead",   "translation": "замешивать"        },
+    { "id": 10, "word": "chop",    "translation": "рубить"            },
+    { "id": 11, "word": "mince",   "translation": "крошить"           },
+    { "id": 12, "word": "melt",    "translation": "плавить"           },
+    { "id": 13, "word": "sift",    "translation": "просеивать"        },
+    { "id": 14, "word": "stir",    "translation": "помешивать"        },
+    { "id": 15, "word": "beat",    "translation": "отбивать"          },
+    { "id": 16, "word": "whisk",   "translation": "сбивать"           },
+    { "id": 17, "word": "simmer",  "translation": "тушить"            },
+    { "id": 18, "word": "roast",   "translation": "прожаривание"      },
+    { "id": 19, "word": "grill",   "translation": "жарить на рашпиле" },
+    { "id": 20, "word": "add",     "translation": "добавлять"         },
+    { "id": 21, "word": "wash",    "translation": "мыть"              },
+    { "id": 22, "word": "weigh",   "translation": "взвешивать"        },
+    { "id": 23, "word": "cook",    "translation": "повар"             }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "title": "Эмоции",
+  "words": [
+    { "id": 0,  "word": "emotion",     "translation": "эмоция"             },
+    { "id": 1,  "word": "mischievous", "translation": "озорной"            },
+    { "id": 2,  "word": "ecstatic",    "translation": "восторженный"       },
+    { "id": 3,  "word": "content",     "translation": "довольный"          },
+    { "id": 4,  "word": "bored",       "translation": "скучающий"          },
+    { "id": 5,  "word": "shocked",     "translation": "в состоянии шока"   },
+    { "id": 6,  "word": "offended",    "translation": "обиженный"          },
+    { "id": 7,  "word": "confident",   "translation": "самоуверенный"      },
+    { "id": 8,  "word": "happy",       "translation": "счастливый"         },
+    { "id": 9,  "word": "hopeful",     "translation": "надеющийся"         },
+    { "id": 10, "word": "curious",     "translation": "любопытный"         },
+    { "id": 11, "word": "excited",     "translation": "взволнованный"      },
+    { "id": 12, "word": "lonely",      "translation": "одинокий"           },
+    { "id": 13, "word": "nervous",     "translation": "нервный"            },
+    { "id": 14, "word": "goofy",       "translation": "глупый"             },
+    { "id": 15, "word": "scared",      "translation": "испуганный"         },
+    { "id": 16, "word": "sad",         "translation": "грустный"           },
+    { "id": 17, "word": "hungry",      "translation": "голодный"           },
+    { "id": 18, "word": "thirsty",     "translation": "испытывающий жажду" },
+    { "id": 19, "word": "tired",       "translation": "уставший"           },
+    { "id": 20, "word": "sleepy",      "translation": "сонный"             },
+    { "id": 21, "word": "surprised",   "translation": "удивленный"         }
+  ]
+}
