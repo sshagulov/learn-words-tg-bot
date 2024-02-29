@@ -1,5 +1,6 @@
 import json
-from data import users, theme_titles
+from data import theme_titles
+from user import User
 
 
 class Button:
@@ -27,20 +28,32 @@ class Keyboard:
 
 
 def settings_keyboard(chat_id):
-    settings = users[str(chat_id)]["settings"]
+    user = User.find_user(str(chat_id))
+    settings = user.data["settings"]
+    
+    theme = theme_titles[settings["theme"]]
+    num_questions = str(settings["num_questions"])
+    num_correct_to_learn = str(settings["num_correct_to_learn"])
+    learn_learned_words = settings["learn_learned_words"]
+
     return Keyboard([
         [Button(
-            "Тема: " + theme_titles[settings["theme"]],
+            "Тема: " + theme,
             "change_theme"
         )],
         [Button(
-            "Количество вопросов: " + str(settings["num_questions"]),
+            "Количество вопросов: " + num_questions,
             "change_num_questions",
         )],
         [Button(
-            "Количество повторов для слова: "
-            + str(settings["num_correct_to_learn"]),
+            "Количество повторов слова для полного изучения: "
+            + num_correct_to_learn,
             "change_num_correct_to_learn",
+        )],
+        [Button(
+            "Включать выученные слова в тест: "
+            + ("Да" if learn_learned_words else "Нет"),
+            f"set_learn_learned_words_{not learn_learned_words}"
         )],
         [Button("Назад", "home")],
     ]).to_json()
@@ -65,3 +78,10 @@ home_keyboard = Keyboard([
 
 
 back_keyboard = Keyboard([[Button("Назад", "home")]]).to_json()
+
+
+relearn_keyboard = Keyboard([
+    [Button("Начать заново", "relearn")],
+    [Button("Сменить тему", "change_theme")],
+    [Button("Назад", "home")],
+]).to_json()

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn English</title>
+    <script src="{{ url_for('static', filename='tailwindcss.js') }}"></script>
+</head>
+
+<body class="bg-neutral-100 p-6">
+
+    <div class="max-w-2xl mx-auto bg-white rounded p-6 shadow-md">
+        <div id="webhookInfoContainer" class="mb-4">
+            <p class="text-sm font-medium text-gray-600">Информация о Webhook:</p>
+            <pre id="webhookInfo" class="whitespace-pre overflow-x-auto mt-1 p-2 border rounded-md">{{ webhook_info }}</pre>
+        </div>
+        <form id="webhookForm" action="{{ url_for('set_webhook') }}" method="post">
+            <button type="submit" class="bg-neutral-50 hover:bg-neutral-100 border py-2 px-4 rounded-md">Установить Webhook</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

@@ -1,6 +1,7 @@
 import random
 import uuid
-from data import words_dict
+from data import words_dict, curr_tests
+from user import User
 
 
 class Test:
@@ -9,16 +10,54 @@ class Test:
         self.theme = theme
         self.num_questions = num_questions
         self.current_question = 0
-        self.shuffled_word_ids = random.sample(
-            [word["id"] for word in words_dict[self.theme]],
-            self.num_questions
-        )
+        self.shuffled_word_ids = []
 
     def __hash__(self):
         return hash(self.id)
 
     def __eq__(self, other):
         return isinstance(other, Test) and self.id == other.id
+
+    @staticmethod
+    def find_test(test_id):
+        return next((test for id, test in curr_tests if id == test_id), None)
+
+    def shuffle_word_ids(self, user_id):
+        user: User = User.find_user(str(user_id))
+        
+        if self.theme not in user.data["learned_words"]:
+            user.data["learned_words"][self.theme] = {}
+        learned_words = user.data["learned_words"][self.theme]
+        
+        word_ids_to_learn = [
+            word["id"]
+            for word in words_dict[self.theme]
+            if (
+                (
+                    word["orig"] in learned_words
+                    and learned_words[word["orig"]]
+                        < user.data["settings"]["num_correct_to_learn"]
+                )
+                or word["orig"] not in learned_words
+            )
+        ]
+
+        # добавляем выученные слова в тест, если не хватило вопросов
+        if (
+            user.data["settings"]["learn_learned_words"] and
+            len(word_ids_to_learn) < self.num_questions
+        ):
+            for _ in range(self.num_questions - len(word_ids_to_learn)):
+                while True:
+                    random_id = random.randint(0, len(words_dict[self.theme]) - 1)
+                    if random_id not in word_ids_to_learn:
+                        word_ids_to_learn.append(random_id)
+                        break
+
+        if self.num_questions > len(word_ids_to_learn):
+            self.num_questions = len(word_ids_to_learn)
+
+        self.shuffled_word_ids = random.sample(word_ids_to_learn, self.num_questions)
 
     def get_examples(self, num_examples):
         return random.sample(words_dict[self.theme], num_examples)

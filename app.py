@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request
+from flask import Flask, render_template, request
 from bot import Bot
 from handlers import handle_update
 
@@ -12,14 +12,23 @@ bot = Bot(TOKEN)
 
 @app.route("/", methods=["GET", "POST"])
 def get_updates():
-    handle_update(bot, request.json)
-    return "OK"
+    if request.method == 'POST':
+        handle_update(bot, request.json)
+        return "OK"
+    else:
+        return render_template(
+            "index.html",
+            webhook_info=bot.get_webhook_info()
+        )
 
 
-@app.route("/set-webhook", methods=["GET", "POST"])
+@app.route("/set_webhook", methods=["POST"])
 def set_webhook():
     bot.set_webhook(URL)
-    return bot.get_webhook_info()
+    return render_template(
+        "index.html",
+        webhook_info=bot.get_webhook_info()
+    )
 
 
 if __name__ == "__main__":
