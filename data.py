@@ -17,5 +17,5 @@ def load_titles():
 
 def load_words():
     for title in theme_titles:
-        with open(f"themes/{title}.json", "r") as f:
+        with open(f"themes/{title}.json", "r", encoding="utf-8") as f:
             words_dict[title] = json.load(f)["words"]

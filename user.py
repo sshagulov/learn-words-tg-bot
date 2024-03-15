@@ -23,12 +23,6 @@ class User:
         } if data is None else data
         self.save()
 
-    def __hash__(self):
-        return hash(self.id)
-
-    def __eq__(self, other):
-        return isinstance(other, User) and self.id == other.id
-
     def save(self):
         with open(f"users/{self.id}.json", "w") as f:
             json.dump(self.data, f, indent=4)

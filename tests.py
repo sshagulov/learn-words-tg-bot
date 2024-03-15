@@ -12,12 +12,6 @@ class Test:
         self.current_question = 0
         self.shuffled_word_ids = []
 
-    def __hash__(self):
-        return hash(self.id)
-
-    def __eq__(self, other):
-        return isinstance(other, Test) and self.id == other.id
-
     @staticmethod
     def find_test(test_id):
         return next((test for id, test in curr_tests if id == test_id), None)
@@ -29,6 +23,8 @@ class Test:
             user.data["learned_words"][self.theme] = {}
         learned_words = user.data["learned_words"][self.theme]
         
+        # получаем массив id вопросов, которых еще не доучили
+        # (< num_correct_to_learn) или вообще не учили
         word_ids_to_learn = [
             word["id"]
             for word in words_dict[self.theme]
@@ -66,7 +62,6 @@ class Test:
         return words_dict[self.theme][id]
 
     def get_current_question(self):
-        if self.current_question <= self.num_questions:
-            return self.get_word_by_id(
-                self.shuffled_word_ids[self.current_question - 1]
-            )
+        return self.get_word_by_id(
+            self.shuffled_word_ids[self.current_question - 1]
+        )

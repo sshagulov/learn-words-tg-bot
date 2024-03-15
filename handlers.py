@@ -38,7 +38,7 @@ def handle_update(bot: Bot, update):
         # change_num_questions
         match = re.match(r"^change_(.*)$", data)
         if match:
-            handle_set(bot, update["callback_query"], match.group(1))
+            handle_change(bot, update["callback_query"], match.group(1))
 
         # set_num_questions_20
         match = re.match(r"^set_(.*)$", data)
@@ -100,7 +100,7 @@ def handle_test_start(bot: Bot, update):
     test = Test(settings["theme"], settings["num_questions"])
     test.shuffle_word_ids(chat_id)
 
-    if len(test.shuffled_word_ids) < 1:
+    if not test.shuffled_word_ids:
 
         bot.answer_callback_query(update["id"])
         bot.edit_message_text(
@@ -213,8 +213,7 @@ def handle_answer(bot: Bot, update, answer):
         if word["orig"] in learned_words:
             learned_words[word["orig"]] = 0
     
-    question = test.get_word_by_id(int(question_id))
-    qa = f"\n{question['orig']} - {question['translation']}\n"
+    qa = f"\n{word['orig']} - {word['translation']}\n"
 
     bot.answer_callback_query(update["id"])
     bot.edit_message_text(
@@ -247,7 +246,7 @@ def handle_stats(bot: Bot, update):
 Слов изучено (по темам): {words_learned}
 """.format(
         total_tests=stats["total_tests"],
-        total_correct_answers=stats["total_tests"],
+        total_correct_answers=stats["total_correct_answers"],
         total_incorrect_answers=stats["total_incorrect_answers"],
         words_learned=words_learned
     )
@@ -274,7 +273,7 @@ def handle_settings(bot: Bot, update):
     )
 
 
-def handle_set(bot: Bot, update, setting: str):
+def handle_change(bot: Bot, update, setting: str):
     chat_id = update["message"]["chat"]["id"]
     message_id = update["message"]["message_id"]
 
@@ -320,16 +319,13 @@ def handle_set(bot: Bot, update, setting: str):
             ])
             setting_name = "количество повторов слова для полного изучения"
 
-        case _:
-            return
-        
     bot.answer_callback_query(update["id"])
     bot.edit_message_text(
         chat_id=chat_id,
         message_id=message_id,
         text="Выбери " + setting_name,
         reply_markup=keyboard.to_json(),
-    )            
+    )
 
 
 def handle_set_value(bot: Bot, update, setting: str, value: str):
